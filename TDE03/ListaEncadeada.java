@@ -173,6 +173,7 @@ class ListaEncadeada {
             while(no_b != null){
 
                 if (no_a.dado == no_b.dado){
+                    if(!resultado.existe(no_a.dado))
                     resultado.insereOrdenado(no_a.dado);
                     break;
                 }
