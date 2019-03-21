@@ -162,4 +162,27 @@ class ListaEncadeada {
 
         return numerador/Math.sqrt(denominador_1*denominador_2);
     }
+
+    ListaEncadeada interseccao(ListaEncadeada lista){
+
+        ListaEncadeada resultado = new ListaEncadeada();
+
+        No no_a = primeiro;
+        while(no_a != null){
+            No no_b = lista.primeiro;
+            while(no_b != null){
+
+                if (no_a.dado == no_b.dado){
+                    resultado.insereOrdenado(no_a.dado);
+                    break;
+                }
+
+                no_b = no_b.proximo;
+            }
+
+            no_a = no_a.proximo;
+        }
+
+        return resultado;
+    }
 }
