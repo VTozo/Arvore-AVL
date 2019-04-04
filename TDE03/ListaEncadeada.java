@@ -3,9 +3,9 @@ class ListaEncadeada {
     private No primeiro = null;
     private No ultimo = null;
 
-    int tamanho_recursivo(No no){
-        if (no == null) return 0;
-        return tamanho_recursivo(no.proximo) + 1;
+    int tamanho_recursivo(No no, int i){
+        if (no == null) return i;
+        return tamanho_recursivo(no.proximo, ++i);
     }
 
     No getPrimeiro() {

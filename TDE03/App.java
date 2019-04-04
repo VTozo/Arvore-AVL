@@ -12,7 +12,7 @@ public class App {
 
         lista_1.mostraLista();
 
-        System.out.println(lista_1.tamanho_recursivo(lista_1.getPrimeiro()));
+        System.out.println(lista_1.tamanho_recursivo(lista_1.getPrimeiro(),0));
     }
 
 }
