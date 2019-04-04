@@ -1,6 +1,16 @@
 class ListaEncadeada {
+
     private No primeiro = null;
     private No ultimo = null;
+
+    int tamanho_recursivo(No no){
+        if (no == null) return 0;
+        return tamanho_recursivo(no.proximo) + 1;
+    }
+
+    No getPrimeiro() {
+        return primeiro;
+    }
 
     private boolean vazia(){
         return primeiro == null;
