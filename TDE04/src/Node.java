@@ -4,7 +4,7 @@ class Node {
     Node direita;
     int dado;
 
-    Node(int dado){
+    Node(int dado) {
         this.dado = dado;
     }
 
