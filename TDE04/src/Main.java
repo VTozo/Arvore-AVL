@@ -21,5 +21,7 @@ class Main {
         arvore.imprimeInordem(arvore.getRaiz());
         System.out.println();
         arvore.imprimePosordem(arvore.getRaiz());
+
+        System.out.println(arvore.altura(arvore.getRaiz()));
     }
 }
