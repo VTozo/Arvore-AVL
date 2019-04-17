@@ -161,78 +161,74 @@ class ArvoreBinaria {
             }
             rotacaoDireita(node);
         } else if (balanceamento(node) > 1) {
-            if (balanceamento(node.direita) > 0) {
+            if (balanceamento(node.direita) < 0) {
                 rotacaoDireita(node.direita);
             }
             rotacaoEsquerda(node);
         }
     }
 
-    void rotacaoEsquerda(Node node) {
+    void rotacaoEsquerda(Node a) {
 
-        Node pai = getPai(node);
+        Node pai = getPai(a);
+        Node b = a.direita;
 
         //  pai
         //   |
-        //  node
+        //   a
         //    \
-        //     x
-        //    /
-        //   y
+        //     b
+        //      \
+        //       c
 
-        Node x = node.direita;
-        Node y = x.esquerda;
-        node.direita = null;
+        if (a == raiz) {
+            raiz = b;
+        } else if (pai.dado <= b.dado) {
+            pai.direita = b;
+        } else {
+            pai.esquerda = b;
+        }
+
+        a.direita = b.esquerda;
+        b.esquerda = a;
 
         //   pai
         //    |
-        //    x
+        //    b
         //   / \
-        // node y
-
-        x.esquerda = node;
-        x.direita = y;
-
-        if (node == raiz) {
-            raiz = x;
-        } else if (pai.dado <= x.dado) {
-            pai.direita = x;
-        } else {
-            pai.esquerda = x;
-        }
+        //  a   c
 
     }
 
-    void rotacaoDireita(Node node) {
-        Node pai = getPai(node);
+    void rotacaoDireita(Node c) {
 
-        //  pai
-        //   |
-        //  node
+        Node pai = getPai(c);
+        Node b = c.esquerda;
+
+        //     pai
+        //      |
+        //      c
+        //     /
+        //    b
         //   /
-        //  x
-        //   \
-        //    y
+        //  a
 
-        Node x = node.esquerda;
-        Node y = x.direita;
+        if (c == raiz) {
+            raiz = b;
+        } else if (pai.dado <= b.dado) {
+            pai.direita = b;
+        } else {
+            pai.esquerda = b;
+        }
+
+        c.esquerda = b.direita;
+        b.direita = c;
 
         //   pai
         //    |
-        //    x
+        //    b
         //   / \
-        //  y  node
-
-        x.direita = node;
-        x.esquerda = y;
-        node.esquerda = null;
-
-        if (node == raiz) {
-            raiz = x;
-        } else if (pai.dado <= x.dado) {
-            pai.direita = x;
-        } else {
-            pai.esquerda = x;
-        }
+        //  c   c
     }
+
 }
