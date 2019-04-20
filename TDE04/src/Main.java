@@ -1,5 +1,6 @@
 class Main {
     public static void main(String[] args) {
+
         ArvoreBinaria arvore = new ArvoreBinaria();
         arvore.insereElemento(9);
         arvore.insereElemento(12);

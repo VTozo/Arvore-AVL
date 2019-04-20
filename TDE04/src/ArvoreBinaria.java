@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 class ArvoreBinaria {
 
@@ -36,7 +35,7 @@ class ArvoreBinaria {
         else
             pai.direita = novo;
 
-        for(int i = lista.size() - 1; i >= 0; i--) {
+        for (int i = lista.size() - 1; i >= 0; i--) {
             rebalancear(lista.get(i));
         }
 
