@@ -16,7 +16,7 @@ class Main {
 
         arvore.imprimeInordem(arvore.getRaiz());
         System.out.println();
-        System.out.println(arvore.getRaiz().dado);
+        System.out.println(arvore.getRaiz().getDado());
 
     }
 }

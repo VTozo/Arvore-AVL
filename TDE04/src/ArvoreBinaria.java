@@ -22,16 +22,16 @@ class ArvoreBinaria {
 
         Node pai = raiz;
 
-        while ((pai.esquerda != null && dado < pai.dado) || (pai.direita != null && dado > pai.dado)) {
+        while ((pai.esquerda != null && dado < pai.getDado()) || (pai.direita != null && dado > pai.getDado())) {
 
             lista.add(pai);
 
-            if (dado < pai.dado)
+            if (dado < pai.getDado())
                 pai = pai.esquerda;
             else
                 pai = pai.direita;
         }
-        if (dado < pai.dado)
+        if (dado < pai.getDado())
             pai.esquerda = novo;
         else
             pai.direita = novo;
@@ -50,10 +50,10 @@ class ArvoreBinaria {
         Node pai = raiz;
 
         while (raiz_atual != null) {
-            if (dado == raiz_atual.dado)
+            if (dado == raiz_atual.getDado())
                 break;
             pai = raiz_atual;
-            if (dado < raiz_atual.dado)
+            if (dado < raiz_atual.getDado())
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -82,10 +82,10 @@ class ArvoreBinaria {
         Node raiz_atual = raiz;
 
         while (raiz_atual != null) {
-            if (dado == raiz_atual.dado)
+            if (dado == raiz_atual.getDado())
                 break;
 
-            if (dado < raiz_atual.dado)
+            if (dado < raiz_atual.getDado())
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -101,7 +101,7 @@ class ArvoreBinaria {
     void imprimePreordem(Node node) {
         if (node == null)
             return;
-        System.out.println(node.dado);
+        System.out.println(node.getDado());
         imprimePreordem(node.esquerda);
         imprimePreordem(node.direita);
     }
@@ -110,7 +110,7 @@ class ArvoreBinaria {
         if (node == null)
             return;
         imprimeInordem(node.esquerda);
-        System.out.println(node.dado);
+        System.out.println(node.getDado());
         imprimeInordem(node.direita);
     }
 
@@ -119,7 +119,7 @@ class ArvoreBinaria {
             return;
         imprimePosordem(node.esquerda);
         imprimePosordem(node.direita);
-        System.out.println(node.dado);
+        System.out.println(node.getDado());
     }
 
     private int altura(Node node) {
@@ -138,7 +138,7 @@ class ArvoreBinaria {
         while (raiz_atual != null) {
             if (node == raiz_atual.esquerda || node == raiz_atual.direita)
                 break;
-            if (node.dado < raiz_atual.dado)
+            if (node.getDado() < raiz_atual.getDado())
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -148,7 +148,7 @@ class ArvoreBinaria {
 
     }
 
-    int balanceamento(Node node) {
+    private int balanceamento(Node node) {
         if (node == null)
             return 0;
         return altura(node.direita) - altura(node.esquerda);
@@ -168,7 +168,7 @@ class ArvoreBinaria {
         }
     }
 
-    void rotacaoEsquerda(Node a) {
+    private void rotacaoEsquerda(Node a) {
 
         Node pai = getPai(a);
         Node b = a.direita;
@@ -183,7 +183,7 @@ class ArvoreBinaria {
 
         if (a == raiz) {
             raiz = b;
-        } else if (pai.dado <= b.dado) {
+        } else if (pai.getDado() <= b.getDado()) {
             pai.direita = b;
         } else {
             pai.esquerda = b;
@@ -200,7 +200,7 @@ class ArvoreBinaria {
 
     }
 
-    void rotacaoDireita(Node c) {
+    private void rotacaoDireita(Node c) {
 
         Node pai = getPai(c);
         Node b = c.esquerda;
@@ -215,7 +215,7 @@ class ArvoreBinaria {
 
         if (c == raiz) {
             raiz = b;
-        } else if (pai.dado <= b.dado) {
+        } else if (pai.getDado() <= b.getDado()) {
             pai.direita = b;
         } else {
             pai.esquerda = b;
