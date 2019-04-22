@@ -1,65 +1,80 @@
-// Utilize a implementação de árvore AVL para desenvolter um contador de palavras em arquivos txt.
-// O programa deve receber como entrada o nome de um diretório onde há arquivos ".txt"
-// e apresentar como saída um relatório que indica quantas vezes um termo foi encontrado em cada arquivo e o total de ocorrências.
-// Exemplo:
-//
-//Entre com um termo a ser pesquisado: "computador"
-//
-//Total de ocorrências de "computador": 6
-//
-//Arquivo "teste.txt": 3
-//
-//Arquivo "livro.txt": 2
-//
-//Arquivo "exame.txt": 1
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ContadorDePalavras {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
-        // Abrir arquivo
-        String fileName = "C:\\Users\\User\\Documents\\GitHub\\Arvore-AVL\\src\\file.txt";
-        FileInputStream file = new FileInputStream(fileName);
-        Scanner scanner = new Scanner(file, StandardCharsets.UTF_8);
+        File pasta = new File("C:\\Users\\User\\Documents\\GitHub\\Arvore-AVL\\src");
+        File[] listaDeArquivos = pasta.listFiles();
+        Scanner scanner;
+        ArrayList<ArvoreBinaria> arvores = new ArrayList<>();
+        int i = 0;
+        Node elemento;
+        ArrayList<String> listaTxt = new ArrayList<>();
 
-        scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
+        if (listaDeArquivos != null) {
+            for (File file : listaDeArquivos) {
+                if (file.isFile() && file.getName().endsWith(".txt")) {
+                    listaTxt.add(file.getName());
+                    // Abrir arquivo
+                    scanner = new Scanner(file, StandardCharsets.UTF_8);
 
-        ArvoreBinaria arvore = new ArvoreBinaria();
+                    scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
 
-        String palavra;
+                    arvores.add(new ArvoreBinaria());
+                    String palavra;
 
-        while (scanner.hasNext()) { // Para cada palavra no arquivo
-            palavra = scanner.next().toLowerCase();
-            System.out.println(palavra);
-            Node elemento = arvore.encontraElemento(palavra);
-            if (elemento == null) {
-                arvore.insereElemento(palavra);
-            } else {
-                elemento.incrementaContador();
+                    while (scanner.hasNext()) { // Para cada palavra no arquivo
+                        palavra = scanner.next().replaceAll("[^a-zA-Z ]", "").toLowerCase();
+                        elemento = arvores.get(i).encontraElemento(palavra);
+                        if (elemento == null) {
+                            arvores.get(i).insereElemento(palavra);
+                        } else {
+                            elemento.incrementaContador();
+                        }
+
+                    }
+
+                    i++;
+                }
             }
-
         }
+
 
         Scanner input = new Scanner(System.in);
         String termo = "";
         Node resultado;
+        int soma;
 
         while (!termo.equals("sair")) {
+            System.out.println();
             System.out.print("Entre com um termo a ser pesquisado: ");
 
             termo = input.nextLine();
 
-            resultado = arvore.encontraElemento(termo);
+            i = 0;
+            soma = 0;
 
-            if (resultado == null)
-                System.out.println("0");
-            else
-                System.out.println(resultado.getContador());
+            for (ArvoreBinaria arvore : arvores) {
+                System.out.print(listaTxt.get(i) + ": ");
+                i++;
+
+                resultado = arvore.encontraElemento(termo);
+
+                if (resultado == null)
+                    System.out.println("0");
+                else{
+                    System.out.println(resultado.getContador());
+                    soma += resultado.getContador();
+                }
+
+            }
+
+            System.out.println("Total: "+soma);
 
         }
 
