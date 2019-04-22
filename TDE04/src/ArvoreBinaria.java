@@ -41,14 +41,14 @@ class ArvoreBinaria {
 
     }
 
-    Node removeElemento(int dado) {
+    void removeElemento(int dado) {
         if (vazia())
-            return null;
+            return;
 
         Node elemento = encontraElemento(dado);
 
         if (elemento == null)
-            return null; // Não existe
+            return; // Não existe
 
         Node pai = getPai(elemento);
 
@@ -86,7 +86,6 @@ class ArvoreBinaria {
             removeElemento(substituto);
         }
 
-        return elemento;
     }
 
     void removeElemento(Node elemento){
