@@ -8,44 +8,53 @@ public class ContadorDePalavras {
 
     public static void main(String[] args) throws IOException {
 
-        File pasta = new File("C:\\Users\\User\\Documents\\GitHub\\Arvore-AVL\\src");
+        Scanner input = new Scanner(System.in);
+
+        System.out.println();
+        System.out.print("Entre com o endereco de uma pasta: ");
+        String endereco_pasta = input.nextLine();
+
+
+        File pasta = new File(endereco_pasta);
         File[] listaDeArquivos = pasta.listFiles();
+
+        if (listaDeArquivos == null){
+            System.out.println("Nenhum arquivo txt foi encontrado!");
+            System.exit(0);;
+        }
+
         Scanner scanner;
         ArrayList<ArvoreBinaria> arvores = new ArrayList<>();
         int i = 0;
         Node elemento;
         ArrayList<String> listaTxt = new ArrayList<>();
 
-        if (listaDeArquivos != null) {
-            for (File file : listaDeArquivos) {
-                if (file.isFile() && file.getName().endsWith(".txt")) {
-                    listaTxt.add(file.getName());
-                    // Abrir arquivo
-                    scanner = new Scanner(file, StandardCharsets.UTF_8);
+        for (File file : listaDeArquivos) {
+            if (file.isFile() && file.getName().endsWith(".txt")) {
+                listaTxt.add(file.getName());
+                // Abrir arquivo
+                scanner = new Scanner(file, StandardCharsets.UTF_8);
 
-                    scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
+                scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
 
-                    arvores.add(new ArvoreBinaria());
-                    String palavra;
+                arvores.add(new ArvoreBinaria());
+                String palavra;
 
-                    while (scanner.hasNext()) { // Para cada palavra no arquivo
-                        palavra = scanner.next().replaceAll("[^a-zA-Z ]", "").toLowerCase();
-                        elemento = arvores.get(i).encontraElemento(palavra);
-                        if (elemento == null) {
-                            arvores.get(i).insereElemento(palavra);
-                        } else {
-                            elemento.incrementaContador();
-                        }
-
+                while (scanner.hasNext()) { // Para cada palavra no arquivo
+                    palavra = scanner.next().replaceAll("[^a-zA-Z ]", "").toLowerCase();
+                    elemento = arvores.get(i).encontraElemento(palavra);
+                    if (elemento == null) {
+                        arvores.get(i).insereElemento(palavra);
+                    } else {
+                        elemento.incrementaContador();
                     }
 
-                    i++;
                 }
+
+                i++;
             }
         }
 
-
-        Scanner input = new Scanner(System.in);
         String termo = "";
         Node resultado;
         int soma;
