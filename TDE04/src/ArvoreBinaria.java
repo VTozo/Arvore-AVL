@@ -45,29 +45,88 @@ class ArvoreBinaria {
         if (vazia())
             return null;
 
-        Node raiz_atual = raiz;
-        Node pai = raiz;
+        Node elemento = encontraElemento(dado);
 
-        while (raiz_atual != null) {
-            if (dado == raiz_atual.getDado())
-                break;
-            pai = raiz_atual;
-            if (dado < raiz_atual.getDado())
-                raiz_atual = raiz_atual.esquerda;
-            else
-                raiz_atual = raiz_atual.direita;
-        }
-
-        if (raiz_atual == null)
+        if (elemento == null)
             return null; // Não existe
 
+        Node pai = getPai(elemento);
 
-        if (pai.direita == raiz_atual)
-            pai.direita = null;
-        else
-            pai.esquerda = null;
+        if(elemento.esquerda == null && elemento.direita == null){
+            // Se o elemento a retirar for uma folha
+            if (elemento == raiz)
+                raiz = null;
+            else if (pai.direita == elemento)
+                pai.direita = null;
+            else
+                pai.esquerda = null;
+        }
+        else if(elemento.esquerda == null){
+            // Se o elemento a retirar tiver UM filho (direita)
+            if (elemento == raiz)
+                raiz = elemento.direita;
+            else if (pai.direita == elemento)
+                pai.direita = elemento.direita;
+            else
+                pai.esquerda = elemento.direita;
+        }
+        else if(elemento.direita == null){
+            // Se o elemento a retirar tiver UM filho (esquerda)
+            if (elemento == raiz)
+                raiz = elemento.esquerda;
+            else if (pai.esquerda == elemento)
+                pai.esquerda = elemento.esquerda;
+            else
+                pai.direita = elemento.esquerda;
+        }
+        else {
+            // Se o elemento a retirar tiver os dois filhos
+            Node substituto = encontraMenorElemento(elemento.direita);
+            elemento.setDado(substituto.getDado());
+            removeElemento(substituto);
+        }
 
-        return raiz_atual;
+        return elemento;
+    }
+
+    void removeElemento(Node elemento){
+
+        Node pai = getPai(elemento);
+
+        if(elemento.esquerda == null && elemento.direita == null){
+            // Se o elemento a retirar for uma folha
+            if (elemento == raiz)
+                raiz = null;
+            else if (pai.direita == elemento)
+                pai.direita = null;
+            else
+                pai.esquerda = null;
+        }
+        else if(elemento.esquerda == null){
+            // Se o elemento a retirar tiver UM filho (direita)
+            if (elemento == raiz)
+                raiz = elemento.direita;
+            else if (pai.direita == elemento)
+                pai.direita = elemento.direita;
+            else
+                pai.esquerda = elemento.direita;
+        }
+        else if(elemento.direita == null){
+            // Se o elemento a retirar tiver UM filho (esquerda)
+            if (elemento == raiz)
+                raiz = elemento.esquerda;
+            else if (pai.esquerda == elemento)
+                pai.esquerda = elemento.esquerda;
+            else
+                pai.direita = elemento.esquerda;
+        }
+        else {
+            // Se o elemento a retirar tiver os dois filhos
+            Node substituto = encontraMenorElemento(elemento.direita);
+            elemento.setDado(substituto.getDado());
+            removeElemento(substituto);
+        }
+
     }
 
     boolean existeElemento(int dado) {
@@ -88,6 +147,17 @@ class ArvoreBinaria {
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
+        }
+
+        return raiz_atual;
+    }
+
+    Node encontraMenorElemento(Node node) {
+
+        Node raiz_atual = node;
+
+        while (raiz_atual.esquerda != null) {
+            raiz_atual = raiz_atual.esquerda;
         }
 
         return raiz_atual;

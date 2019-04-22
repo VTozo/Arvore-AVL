@@ -14,6 +14,7 @@ class Main {
         arvore.insereElemento(14);
         arvore.insereElemento(8);
         arvore.insereElemento(1);
+        arvore.removeElemento(12);
 
         arvore.imprimeInordem(arvore.getRaiz());
         System.out.println();

@@ -11,4 +11,8 @@ class Node {
     int getDado() {
         return dado;
     }
+
+    public void setDado(int dado) {
+        this.dado = dado;
+    }
 }
