@@ -13,19 +13,42 @@
 //
 //Arquivo "exame.txt": 1
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ContadorDePalavras {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        Scanner scanner = new Scanner(System.in);
+        // Abrir arquivo
+        String fileName = "C:\\Users\\User\\Documents\\GitHub\\Arvore-AVL\\src\\file.txt";
+        FileInputStream file = new FileInputStream(fileName);
+        Scanner scanner = new Scanner(file, StandardCharsets.UTF_8);
 
-        System.out.print("Entre com um termo a ser pesquisado: ");
+        scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
 
-        String termo = scanner.nextLine();
+        ArvoreBinaria arvore = new ArvoreBinaria();
 
-        // ??
+        String palavra;
+
+        while (scanner.hasNext()) { // Para cada palavra no arquivo
+            palavra = scanner.next().toLowerCase();
+            System.out.println(palavra);
+            Node elemento = arvore.encontraElemento(palavra);
+            if (elemento == null){
+                arvore.insereElemento(palavra);
+            }
+            else {
+                elemento.incrementar();
+            }
+
+        }
+
+        
 
     }
 

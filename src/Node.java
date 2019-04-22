@@ -2,17 +2,23 @@ class Node {
 
     Node esquerda;
     Node direita;
-    private int dado;
+    private int contador;
+    private String palavra;
 
-    Node(int dado) {
-        this.dado = dado;
+    Node(String palavra) {
+        this.palavra = palavra;
+        this.contador = 1;
     }
 
-    int getDado() {
-        return dado;
+    String getDado() {
+        return palavra;
     }
 
-    public void setDado(int dado) {
-        this.dado = dado;
+    void setDado(String dado) {
+        this.palavra = dado;
+    }
+
+    void incrementar(){
+        contador++;
     }
 }

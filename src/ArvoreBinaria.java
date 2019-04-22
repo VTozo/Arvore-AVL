@@ -8,7 +8,7 @@ class ArvoreBinaria {
         return raiz;
     }
 
-    void insereElemento(int dado) {
+    void insereElemento(String dado) {
 
         ArrayList<Node> lista = new ArrayList<>();
 
@@ -21,16 +21,19 @@ class ArvoreBinaria {
 
         Node pai = raiz;
 
-        while ((pai.esquerda != null && dado < pai.getDado()) || (pai.direita != null && dado > pai.getDado())) {
+        while (
+                (pai.esquerda != null && dado.compareTo(pai.getDado()) < 0) ||
+                (pai.direita != null && dado.compareTo(pai.getDado()) > 0)
+        ) {
 
             lista.add(pai);
 
-            if (dado < pai.getDado())
+            if (dado.compareTo(pai.getDado()) < 0)
                 pai = pai.esquerda;
             else
                 pai = pai.direita;
         }
-        if (dado < pai.getDado())
+        if (dado.compareTo(pai.getDado()) < 0)
             pai.esquerda = novo;
         else
             pai.direita = novo;
@@ -41,7 +44,7 @@ class ArvoreBinaria {
 
     }
 
-    void removeElemento(int dado) {
+    void removeElemento(String dado) {
         if (vazia())
             return;
 
@@ -128,21 +131,21 @@ class ArvoreBinaria {
 
     }
 
-    boolean existeElemento(int dado) {
+    boolean existeElemento(String dado) {
         return encontraElemento(dado) != null;
     }
 
-    Node encontraElemento(int dado) {
+    Node encontraElemento(String dado) {
         if (vazia())
             return null;
 
         Node raiz_atual = raiz;
 
         while (raiz_atual != null) {
-            if (dado == raiz_atual.getDado())
+            if (dado.equals(raiz_atual.getDado()))
                 break;
 
-            if (dado < raiz_atual.getDado())
+            if (dado.compareTo(raiz_atual.getDado()) < 0)
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -206,7 +209,7 @@ class ArvoreBinaria {
         while (raiz_atual != null) {
             if (node == raiz_atual.esquerda || node == raiz_atual.direita)
                 break;
-            if (node.getDado() < raiz_atual.getDado())
+            if (node.getDado().compareTo(raiz_atual.getDado()) < 0)
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -251,7 +254,7 @@ class ArvoreBinaria {
 
         if (a == raiz) {
             raiz = b;
-        } else if (pai.getDado() <= b.getDado()) {
+        } else if (pai.getDado().compareTo(b.getDado()) <= 0) {
             pai.direita = b;
         } else {
             pai.esquerda = b;
@@ -283,7 +286,7 @@ class ArvoreBinaria {
 
         if (c == raiz) {
             raiz = b;
-        } else if (pai.getDado() <= b.getDado()) {
+        } else if (pai.getDado().compareTo(b.getDado()) <= 0) {
             pai.direita = b;
         } else {
             pai.esquerda = b;
