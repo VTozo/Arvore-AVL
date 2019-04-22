@@ -21,19 +21,16 @@ class ArvoreBinaria {
 
         Node pai = raiz;
 
-        while (
-                (pai.esquerda != null && dado.compareTo(pai.getDado()) < 0) ||
-                (pai.direita != null && dado.compareTo(pai.getDado()) > 0)
-        ) {
+        while ((pai.esquerda != null && dado.compareTo(pai.getPalavra()) < 0) || (pai.direita != null && dado.compareTo(pai.getPalavra()) > 0)) {
 
             lista.add(pai);
 
-            if (dado.compareTo(pai.getDado()) < 0)
+            if (dado.compareTo(pai.getPalavra()) < 0)
                 pai = pai.esquerda;
             else
                 pai = pai.direita;
         }
-        if (dado.compareTo(pai.getDado()) < 0)
+        if (dado.compareTo(pai.getPalavra()) < 0)
             pai.esquerda = novo;
         else
             pai.direita = novo;
@@ -55,7 +52,7 @@ class ArvoreBinaria {
 
         Node pai = getPai(elemento);
 
-        if(elemento.esquerda == null && elemento.direita == null){
+        if (elemento.esquerda == null && elemento.direita == null) {
             // Se o elemento a retirar for uma folha
             if (elemento == raiz)
                 raiz = null;
@@ -63,8 +60,7 @@ class ArvoreBinaria {
                 pai.direita = null;
             else
                 pai.esquerda = null;
-        }
-        else if(elemento.esquerda == null){
+        } else if (elemento.esquerda == null) {
             // Se o elemento a retirar tiver UM filho (direita)
             if (elemento == raiz)
                 raiz = elemento.direita;
@@ -72,8 +68,7 @@ class ArvoreBinaria {
                 pai.direita = elemento.direita;
             else
                 pai.esquerda = elemento.direita;
-        }
-        else if(elemento.direita == null){
+        } else if (elemento.direita == null) {
             // Se o elemento a retirar tiver UM filho (esquerda)
             if (elemento == raiz)
                 raiz = elemento.esquerda;
@@ -81,21 +76,20 @@ class ArvoreBinaria {
                 pai.esquerda = elemento.esquerda;
             else
                 pai.direita = elemento.esquerda;
-        }
-        else {
+        } else {
             // Se o elemento a retirar tiver os dois filhos
             Node substituto = encontraMenorElemento(elemento.direita);
-            elemento.setDado(substituto.getDado());
+            elemento.setPalavra(substituto.getPalavra());
             removeElemento(substituto);
         }
 
     }
 
-    void removeElemento(Node elemento){
+    void removeElemento(Node elemento) {
 
         Node pai = getPai(elemento);
 
-        if(elemento.esquerda == null && elemento.direita == null){
+        if (elemento.esquerda == null && elemento.direita == null) {
             // Se o elemento a retirar for uma folha
             if (elemento == raiz)
                 raiz = null;
@@ -103,8 +97,7 @@ class ArvoreBinaria {
                 pai.direita = null;
             else
                 pai.esquerda = null;
-        }
-        else if(elemento.esquerda == null){
+        } else if (elemento.esquerda == null) {
             // Se o elemento a retirar tiver UM filho (direita)
             if (elemento == raiz)
                 raiz = elemento.direita;
@@ -112,8 +105,7 @@ class ArvoreBinaria {
                 pai.direita = elemento.direita;
             else
                 pai.esquerda = elemento.direita;
-        }
-        else if(elemento.direita == null){
+        } else if (elemento.direita == null) {
             // Se o elemento a retirar tiver UM filho (esquerda)
             if (elemento == raiz)
                 raiz = elemento.esquerda;
@@ -121,11 +113,10 @@ class ArvoreBinaria {
                 pai.esquerda = elemento.esquerda;
             else
                 pai.direita = elemento.esquerda;
-        }
-        else {
+        } else {
             // Se o elemento a retirar tiver os dois filhos
             Node substituto = encontraMenorElemento(elemento.direita);
-            elemento.setDado(substituto.getDado());
+            elemento.setPalavra(substituto.getPalavra());
             removeElemento(substituto);
         }
 
@@ -142,10 +133,10 @@ class ArvoreBinaria {
         Node raiz_atual = raiz;
 
         while (raiz_atual != null) {
-            if (dado.equals(raiz_atual.getDado()))
+            if (dado.equals(raiz_atual.getPalavra()))
                 break;
 
-            if (dado.compareTo(raiz_atual.getDado()) < 0)
+            if (dado.compareTo(raiz_atual.getPalavra()) < 0)
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -172,7 +163,7 @@ class ArvoreBinaria {
     void imprimePreordem(Node node) {
         if (node == null)
             return;
-        System.out.println(node.getDado());
+        System.out.println(node.getPalavra());
         imprimePreordem(node.esquerda);
         imprimePreordem(node.direita);
     }
@@ -181,7 +172,7 @@ class ArvoreBinaria {
         if (node == null)
             return;
         imprimeInordem(node.esquerda);
-        System.out.println(node.getDado());
+        System.out.println(node.getPalavra());
         imprimeInordem(node.direita);
     }
 
@@ -190,7 +181,7 @@ class ArvoreBinaria {
             return;
         imprimePosordem(node.esquerda);
         imprimePosordem(node.direita);
-        System.out.println(node.getDado());
+        System.out.println(node.getPalavra());
     }
 
     private int altura(Node node) {
@@ -209,7 +200,7 @@ class ArvoreBinaria {
         while (raiz_atual != null) {
             if (node == raiz_atual.esquerda || node == raiz_atual.direita)
                 break;
-            if (node.getDado().compareTo(raiz_atual.getDado()) < 0)
+            if (node.getPalavra().compareTo(raiz_atual.getPalavra()) < 0)
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -254,7 +245,7 @@ class ArvoreBinaria {
 
         if (a == raiz) {
             raiz = b;
-        } else if (pai.getDado().compareTo(b.getDado()) <= 0) {
+        } else if (pai.getPalavra().compareTo(b.getPalavra()) <= 0) {
             pai.direita = b;
         } else {
             pai.esquerda = b;
@@ -286,7 +277,7 @@ class ArvoreBinaria {
 
         if (c == raiz) {
             raiz = b;
-        } else if (pai.getDado().compareTo(b.getDado()) <= 0) {
+        } else if (pai.getPalavra().compareTo(b.getPalavra()) <= 0) {
             pai.direita = b;
         } else {
             pai.esquerda = b;

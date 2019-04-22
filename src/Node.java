@@ -10,15 +10,19 @@ class Node {
         this.contador = 1;
     }
 
-    String getDado() {
+    String getPalavra() {
         return palavra;
     }
 
-    void setDado(String dado) {
+    void setPalavra(String dado) {
         this.palavra = dado;
     }
 
-    void incrementar(){
+    void incrementaContador() {
         contador++;
+    }
+
+    public int getContador() {
+        return contador;
     }
 }

@@ -13,11 +13,9 @@
 //
 //Arquivo "exame.txt": 1
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ContadorDePalavras {
@@ -39,16 +37,32 @@ public class ContadorDePalavras {
             palavra = scanner.next().toLowerCase();
             System.out.println(palavra);
             Node elemento = arvore.encontraElemento(palavra);
-            if (elemento == null){
+            if (elemento == null) {
                 arvore.insereElemento(palavra);
-            }
-            else {
-                elemento.incrementar();
+            } else {
+                elemento.incrementaContador();
             }
 
         }
 
-        
+        Scanner input = new Scanner(System.in);
+        String termo = "";
+        Node resultado;
+
+        while (!termo.equals("sair")) {
+            System.out.print("Entre com um termo a ser pesquisado: ");
+
+            termo = input.nextLine();
+
+            resultado = arvore.encontraElemento(termo);
+
+            if (resultado == null)
+                System.out.println("0");
+            else
+                System.out.println(resultado.getContador());
+
+        }
+
 
     }
 
