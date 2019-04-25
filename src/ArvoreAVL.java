@@ -1,25 +1,25 @@
 import java.util.ArrayList;
 
-class ArvoreBinaria {
+class ArvoreAVL {
 
-    private Node raiz;
+    private NodeAVL raiz;
 
-    Node getRaiz() {
+    NodeAVL getRaiz() {
         return raiz;
     }
 
     void insereElemento(String dado) {
 
-        ArrayList<Node> lista = new ArrayList<>();
+        ArrayList<NodeAVL> lista = new ArrayList<>();
 
-        Node novo = new Node(dado);
+        NodeAVL novo = new NodeAVL(dado);
 
         if (vazia()) {
             raiz = novo;
             return;
         }
 
-        Node pai = raiz;
+        NodeAVL pai = raiz;
 
         while ((pai.esquerda != null && dado.compareTo(pai.getPalavra()) < 0) || (pai.direita != null && dado.compareTo(pai.getPalavra()) > 0)) {
 
@@ -45,12 +45,12 @@ class ArvoreBinaria {
         if (vazia())
             return;
 
-        Node elemento = encontraElemento(dado);
+        NodeAVL elemento = encontraElemento(dado);
 
         if (elemento == null)
             return; // Não existe
 
-        Node pai = getPai(elemento);
+        NodeAVL pai = getPai(elemento);
 
         if (elemento.esquerda == null && elemento.direita == null) {
             // Se o elemento a retirar for uma folha
@@ -78,16 +78,16 @@ class ArvoreBinaria {
                 pai.direita = elemento.esquerda;
         } else {
             // Se o elemento a retirar tiver os dois filhos
-            Node substituto = encontraMenorElemento(elemento.direita);
+            NodeAVL substituto = encontraMenorElemento(elemento.direita);
             elemento.setPalavra(substituto.getPalavra());
             removeElemento(substituto);
         }
 
     }
 
-    void removeElemento(Node elemento) {
+    void removeElemento(NodeAVL elemento) {
 
-        Node pai = getPai(elemento);
+        NodeAVL pai = getPai(elemento);
 
         if (elemento.esquerda == null && elemento.direita == null) {
             // Se o elemento a retirar for uma folha
@@ -115,7 +115,7 @@ class ArvoreBinaria {
                 pai.direita = elemento.esquerda;
         } else {
             // Se o elemento a retirar tiver os dois filhos
-            Node substituto = encontraMenorElemento(elemento.direita);
+            NodeAVL substituto = encontraMenorElemento(elemento.direita);
             elemento.setPalavra(substituto.getPalavra());
             removeElemento(substituto);
         }
@@ -126,11 +126,11 @@ class ArvoreBinaria {
         return encontraElemento(dado) != null;
     }
 
-    Node encontraElemento(String dado) {
+    NodeAVL encontraElemento(String dado) {
         if (vazia())
             return null;
 
-        Node raiz_atual = raiz;
+        NodeAVL raiz_atual = raiz;
 
         while (raiz_atual != null) {
             if (dado.equals(raiz_atual.getPalavra()))
@@ -145,9 +145,9 @@ class ArvoreBinaria {
         return raiz_atual;
     }
 
-    Node encontraMenorElemento(Node node) {
+    NodeAVL encontraMenorElemento(NodeAVL nodeAVL) {
 
-        Node raiz_atual = node;
+        NodeAVL raiz_atual = nodeAVL;
 
         while (raiz_atual.esquerda != null) {
             raiz_atual = raiz_atual.esquerda;
@@ -160,47 +160,47 @@ class ArvoreBinaria {
         return raiz == null;
     }
 
-    void imprimePreordem(Node node) {
-        if (node == null)
+    void imprimePreordem(NodeAVL nodeAVL) {
+        if (nodeAVL == null)
             return;
-        System.out.println(node.getPalavra());
-        imprimePreordem(node.esquerda);
-        imprimePreordem(node.direita);
+        System.out.println(nodeAVL.getPalavra());
+        imprimePreordem(nodeAVL.esquerda);
+        imprimePreordem(nodeAVL.direita);
     }
 
-    void imprimeInordem(Node node) {
-        if (node == null)
+    void imprimeInordem(NodeAVL nodeAVL) {
+        if (nodeAVL == null)
             return;
-        imprimeInordem(node.esquerda);
-        System.out.println(node.getPalavra());
-        imprimeInordem(node.direita);
+        imprimeInordem(nodeAVL.esquerda);
+        System.out.println(nodeAVL.getPalavra());
+        imprimeInordem(nodeAVL.direita);
     }
 
-    void imprimePosordem(Node node) {
-        if (node == null)
+    void imprimePosordem(NodeAVL nodeAVL) {
+        if (nodeAVL == null)
             return;
-        imprimePosordem(node.esquerda);
-        imprimePosordem(node.direita);
-        System.out.println(node.getPalavra());
+        imprimePosordem(nodeAVL.esquerda);
+        imprimePosordem(nodeAVL.direita);
+        System.out.println(nodeAVL.getPalavra());
     }
 
-    private int altura(Node node) {
-        if (node != null)
-            return 1 + Math.max(altura(node.esquerda), altura(node.direita));
+    private int altura(NodeAVL nodeAVL) {
+        if (nodeAVL != null)
+            return 1 + Math.max(altura(nodeAVL.esquerda), altura(nodeAVL.direita));
         return 0;
     }
 
-    private Node getPai(Node node) {
+    private NodeAVL getPai(NodeAVL nodeAVL) {
 
-        if (node == raiz)
+        if (nodeAVL == raiz)
             return null;
 
-        Node raiz_atual = raiz;
+        NodeAVL raiz_atual = raiz;
 
         while (raiz_atual != null) {
-            if (node == raiz_atual.esquerda || node == raiz_atual.direita)
+            if (nodeAVL == raiz_atual.esquerda || nodeAVL == raiz_atual.direita)
                 break;
-            if (node.getPalavra().compareTo(raiz_atual.getPalavra()) < 0)
+            if (nodeAVL.getPalavra().compareTo(raiz_atual.getPalavra()) < 0)
                 raiz_atual = raiz_atual.esquerda;
             else
                 raiz_atual = raiz_atual.direita;
@@ -210,30 +210,30 @@ class ArvoreBinaria {
 
     }
 
-    private int balanceamento(Node node) {
-        if (node == null)
+    private int balanceamento(NodeAVL nodeAVL) {
+        if (nodeAVL == null)
             return 0;
-        return altura(node.direita) - altura(node.esquerda);
+        return altura(nodeAVL.direita) - altura(nodeAVL.esquerda);
     }
 
-    private void rebalancear(Node node) {
-        if (balanceamento(node) < -1) {
-            if (balanceamento(node.esquerda) > 0) {
-                rotacaoEsquerda(node.esquerda);
+    private void rebalancear(NodeAVL nodeAVL) {
+        if (balanceamento(nodeAVL) < -1) {
+            if (balanceamento(nodeAVL.esquerda) > 0) {
+                rotacaoEsquerda(nodeAVL.esquerda);
             }
-            rotacaoDireita(node);
-        } else if (balanceamento(node) > 1) {
-            if (balanceamento(node.direita) < 0) {
-                rotacaoDireita(node.direita);
+            rotacaoDireita(nodeAVL);
+        } else if (balanceamento(nodeAVL) > 1) {
+            if (balanceamento(nodeAVL.direita) < 0) {
+                rotacaoDireita(nodeAVL.direita);
             }
-            rotacaoEsquerda(node);
+            rotacaoEsquerda(nodeAVL);
         }
     }
 
-    private void rotacaoEsquerda(Node a) {
+    private void rotacaoEsquerda(NodeAVL a) {
 
-        Node pai = getPai(a);
-        Node b = a.direita;
+        NodeAVL pai = getPai(a);
+        NodeAVL b = a.direita;
 
         //  pai
         //   |
@@ -262,10 +262,10 @@ class ArvoreBinaria {
 
     }
 
-    private void rotacaoDireita(Node c) {
+    private void rotacaoDireita(NodeAVL c) {
 
-        Node pai = getPai(c);
-        Node b = c.esquerda;
+        NodeAVL pai = getPai(c);
+        NodeAVL b = c.esquerda;
 
         //     pai
         //      |

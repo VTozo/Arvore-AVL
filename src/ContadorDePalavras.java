@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,10 +7,12 @@ public class ContadorDePalavras {
 
     public static void main(String[] args) throws IOException {
 
+        ArvoreAVL arvore = new ArvoreAVL();
+
         Scanner input = new Scanner(System.in);
 
         System.out.println();
-        System.out.print("Entre com o endereco de uma pasta: ");
+        System.out.print("Entre com o endereço de uma pasta: ");
         String endereco_pasta = input.nextLine();
 
 
@@ -24,39 +25,35 @@ public class ContadorDePalavras {
         }
 
         Scanner scanner;
-        ArrayList<ArvoreBinaria> arvores = new ArrayList<>();
-        int i = 0;
-        Node elemento;
+        NodeAVL elemento;
         ArrayList<String> listaTxt = new ArrayList<>();
 
         for (File file : listaDeArquivos) {
             if (file.isFile() && file.getName().endsWith(".txt")) {
-                listaTxt.add(file.getName());
+                String nome_arquivo = file.getName();
                 // Abrir arquivo
-                scanner = new Scanner(file, StandardCharsets.UTF_8);
+                scanner = new Scanner(file, "utf-8");
 
                 scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
 
-                arvores.add(new ArvoreBinaria());
                 String palavra;
 
                 while (scanner.hasNext()) { // Para cada palavra no arquivo
                     palavra = scanner.next().replaceAll("[^a-zA-Z ]", "").toLowerCase();
-                    elemento = arvores.get(i).encontraElemento(palavra);
+                    elemento = arvore.encontraElemento(palavra);
                     if (elemento == null) {
-                        arvores.get(i).insereElemento(palavra);
+                        arvore.insereElemento(palavra);
                     } else {
-                        elemento.incrementaContador();
+                        elemento.getArquivo(nome_arquivo).incrementaContador();
                     }
 
                 }
 
-                i++;
             }
         }
 
         String termo = "";
-        Node resultado;
+        NodeAVL resultado;
         int soma;
 
         while (!termo.equals("sair")) {
@@ -65,25 +62,13 @@ public class ContadorDePalavras {
 
             termo = input.nextLine();
 
-            i = 0;
-            soma = 0;
+            resultado = arvore.encontraElemento(termo);
 
-            for (ArvoreBinaria arvore : arvores) {
-                System.out.print(listaTxt.get(i) + ": ");
-                i++;
-
-                resultado = arvore.encontraElemento(termo);
-
-                if (resultado == null)
-                    System.out.println("0");
-                else{
-                    System.out.println(resultado.getContador());
-                    soma += resultado.getContador();
-                }
-
+            if (resultado == null)
+                System.out.println("Não encontrado");
+            else{
+                System.out.println("Total: "+resultado.getArquivos().somaContadores());
             }
-
-            System.out.println("Total: "+soma);
 
         }
 
