@@ -8,6 +8,7 @@ class NodeAVL {
 
     NodeAVL(String palavra) {
         this.palavra = palavra;
+        this.arquivos = new ListaEncadeada();
     }
 
     String getPalavra() {

@@ -99,7 +99,7 @@ class ListaEncadeada {
 
     NodeLista encontraElemento(String arquivo) {
         NodeLista NodeLista = primeiro;
-        while (NodeLista.proximo != null) {
+        while (NodeLista != null) {
             if (NodeLista.getArquivo().equals(arquivo)) return NodeLista;
             NodeLista = NodeLista.proximo;
         }

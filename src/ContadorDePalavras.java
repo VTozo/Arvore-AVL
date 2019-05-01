@@ -43,8 +43,17 @@ public class ContadorDePalavras {
                     elemento = arvore.encontraElemento(palavra);
                     if (elemento == null) {
                         arvore.insereElemento(palavra);
+                        arvore.encontraElemento(palavra).getArquivos().insereOrdenado(nome_arquivo);
+
                     } else {
-                        elemento.getArquivo(nome_arquivo).incrementaContador();
+
+                        NodeLista arquivo = elemento.getArquivo(nome_arquivo);
+
+                        if (arquivo != null)
+                            arquivo.incrementaContador();
+                        else
+                            arvore.encontraElemento(palavra).getArquivos().insereOrdenado(nome_arquivo);
+
                     }
 
                 }
@@ -54,7 +63,6 @@ public class ContadorDePalavras {
 
         String termo = "";
         NodeAVL resultado;
-        int soma;
 
         while (!termo.equals("sair")) {
             System.out.println();
