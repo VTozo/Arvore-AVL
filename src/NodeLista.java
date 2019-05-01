@@ -19,4 +19,5 @@ class NodeLista {
     void incrementaContador() {
         this.contador++;
     }
+
 }

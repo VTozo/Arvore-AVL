@@ -3,6 +3,16 @@ class ListaEncadeada {
     private NodeLista primeiro = null;
     private NodeLista ultimo = null;
 
+    void imprimirLista() {
+        if (!vazia()) {
+            NodeLista atual = primeiro;
+            while (atual != null) {
+                System.out.println(atual.getArquivo()+ ": " + atual.getContador());
+                atual = atual.proximo;
+            }
+        } else System.out.println();
+    }
+
     int somaContadores(){
         if (vazia()) return 0;
 
@@ -10,7 +20,7 @@ class ListaEncadeada {
 
         NodeLista no = primeiro;
 
-        while (no.proximo != null) {
+        while (no != null) {
             soma += no.getContador();
             no = no.proximo;
         }
@@ -39,37 +49,37 @@ class ListaEncadeada {
     }
 
     NodeLista inserePrimeiro(String arquivo) {
-        NodeLista NodeListavo = new NodeLista(arquivo);
+        NodeLista node_lista = new NodeLista(arquivo);
         if (vazia()) {
-            primeiro = NodeListavo;
-            ultimo = NodeListavo;
+            primeiro = node_lista;
+            ultimo = node_lista;
         } else {
-            NodeListavo.proximo = primeiro;
-            primeiro = NodeListavo;
+            node_lista.proximo = primeiro;
+            primeiro = node_lista;
         }
 
-        return NodeListavo;
+        return node_lista;
     }
 
     NodeLista insereDepois(String arquivo, NodeLista anterior) {
         if (anterior == ultimo) return insereUltimo(arquivo);
 
-        NodeLista NodeListavo = new NodeLista(arquivo);
-        NodeListavo.proximo = anterior.proximo;
-        anterior.proximo = NodeListavo;
-        return NodeListavo;
+        NodeLista node_lista = new NodeLista(arquivo);
+        node_lista.proximo = anterior.proximo;
+        anterior.proximo = node_lista;
+        return node_lista;
     }
 
     NodeLista insereUltimo(String arquivo) {
-        NodeLista NodeListavo = new NodeLista(arquivo);
+        NodeLista node_lista = new NodeLista(arquivo);
         if (vazia()) {
-            primeiro = NodeListavo;
-            ultimo = NodeListavo;
+            primeiro = node_lista;
+            ultimo = node_lista;
         } else {
-            ultimo.proximo = NodeListavo;
-            ultimo = NodeListavo;
+            ultimo.proximo = node_lista;
+            ultimo = node_lista;
         }
-        return NodeListavo;
+        return node_lista;
     }
 
     NodeLista insereOrdenado(String arquivo) {

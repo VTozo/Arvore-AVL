@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ContadorDePalavras {
@@ -32,7 +33,7 @@ public class ContadorDePalavras {
             if (file.isFile() && file.getName().endsWith(".txt")) {
                 String nome_arquivo = file.getName();
                 // Abrir arquivo
-                scanner = new Scanner(file, "utf-8");
+                scanner = new Scanner(file, "UTF-8");
 
                 scanner.useDelimiter("\\s*\\s"); // Separar por espaço(s)
 
@@ -68,13 +69,15 @@ public class ContadorDePalavras {
             System.out.println();
             System.out.print("Entre com um termo a ser pesquisado: ");
 
-            termo = input.nextLine();
+            termo = input.nextLine().toLowerCase();
 
             resultado = arvore.encontraElemento(termo);
 
+
             if (resultado == null)
-                System.out.println("Não encontrado");
+                System.out.println("Total: 0");
             else{
+                resultado.getArquivos().imprimirLista();
                 System.out.println("Total: "+resultado.getArquivos().somaContadores());
             }
 
@@ -82,5 +85,6 @@ public class ContadorDePalavras {
 
 
     }
+
 
 }

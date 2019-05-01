@@ -290,7 +290,7 @@ class ArvoreAVL {
         //    |
         //    b
         //   / \
-        //  c   c
+        //  c   a
     }
 
 }
