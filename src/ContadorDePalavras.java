@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ContadorDePalavras {
@@ -20,9 +19,9 @@ public class ContadorDePalavras {
         File pasta = new File(endereco_pasta);
         File[] listaDeArquivos = pasta.listFiles();
 
-        if (listaDeArquivos == null){
+        if (listaDeArquivos == null) {
             System.out.println("Nenhum arquivo txt foi encontrado!");
-            System.exit(0);;
+            System.exit(0);
         }
 
         Scanner scanner;
@@ -76,9 +75,9 @@ public class ContadorDePalavras {
 
             if (resultado == null)
                 System.out.println("Total: 0");
-            else{
+            else {
                 resultado.getArquivos().imprimirLista();
-                System.out.println("Total: "+resultado.getArquivos().somaContadores());
+                System.out.println("Total: " + resultado.getArquivos().somaContadores());
             }
 
         }

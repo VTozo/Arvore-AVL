@@ -7,14 +7,16 @@ class ListaEncadeada {
         if (!vazia()) {
             NodeLista atual = primeiro;
             while (atual != null) {
-                System.out.println(atual.getArquivo()+ ": " + atual.getContador());
+                System.out.println(atual.getArquivo() + ": " + atual.getContador());
                 atual = atual.proximo;
             }
-        } else System.out.println();
+        } else
+            System.out.println();
     }
 
-    int somaContadores(){
-        if (vazia()) return 0;
+    int somaContadores() {
+        if (vazia())
+            return 0;
 
         int soma = 0;
 
@@ -33,13 +35,14 @@ class ListaEncadeada {
     }
 
     void mostraLista() {
-        if (vazia()) return;
+        if (vazia())
+            return;
 
         NodeLista no = primeiro;
-        System.out.print(no.getArquivo()+": "+no.getContador());
+        System.out.print(no.getArquivo() + ": " + no.getContador());
         while (no.proximo != null) {
             no = no.proximo;
-            System.out.print(", "+ System.lineSeparator() + no.getArquivo()+": "+no.getContador());
+            System.out.print(", " + System.lineSeparator() + no.getArquivo() + ": " + no.getContador());
         }
         System.out.println();
     }
@@ -62,7 +65,8 @@ class ListaEncadeada {
     }
 
     NodeLista insereDepois(String arquivo, NodeLista anterior) {
-        if (anterior == ultimo) return insereUltimo(arquivo);
+        if (anterior == ultimo)
+            return insereUltimo(arquivo);
 
         NodeLista node_lista = new NodeLista(arquivo);
         node_lista.proximo = anterior.proximo;
@@ -110,14 +114,16 @@ class ListaEncadeada {
     NodeLista encontraElemento(String arquivo) {
         NodeLista NodeLista = primeiro;
         while (NodeLista != null) {
-            if (NodeLista.getArquivo().equals(arquivo)) return NodeLista;
+            if (NodeLista.getArquivo().equals(arquivo))
+                return NodeLista;
             NodeLista = NodeLista.proximo;
         }
         return null;
     }
 
     int tamanho() {
-        if (vazia()) return 0;
+        if (vazia())
+            return 0;
 
         NodeLista NodeLista = primeiro;
         int i = 1;
@@ -131,7 +137,8 @@ class ListaEncadeada {
     boolean existe(String arquivo) {
         NodeLista NodeLista = primeiro;
         while (NodeLista != null) {
-            if (arquivo.equals(NodeLista.getArquivo())) return true;
+            if (arquivo.equals(NodeLista.getArquivo()))
+                return true;
             NodeLista = NodeLista.proximo;
         }
         return false;

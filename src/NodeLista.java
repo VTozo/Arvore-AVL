@@ -1,9 +1,9 @@
 class NodeLista {
+    NodeLista proximo = null;
     private int contador;
     private String arquivo;
-    NodeLista proximo = null;
 
-    NodeLista(String arquivo){
+    NodeLista(String arquivo) {
         this.arquivo = arquivo;
         this.contador = 1;
     }
